@@ -18,7 +18,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'com.codeborne:selenide:5.19.0'
     implementation 'com.github.javafaker:javafaker:1.0.2'
-    compile "com.opencsv:opencsv:4.0"
 }
 
 test {
