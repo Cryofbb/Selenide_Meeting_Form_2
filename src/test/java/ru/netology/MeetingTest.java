@@ -142,7 +142,7 @@ public class MeetingTest {
         $("[data-test-id='phone']").$("[name='phone']").setValue(user.getPhone());
         $("[data-test-id=agreement]").click();
         $$("button").find(exactText("Запланировать")).click();
-        $("[data-test-id=name].input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
+        $("[data-test-id=name].input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Имя и Фамилия указаны неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
     @Test
@@ -154,7 +154,7 @@ public class MeetingTest {
         $("[data-test-id='phone']").$("[name='phone']").setValue(user.getPhone());
         $("[data-test-id=agreement]").click();
         $$("button").find(exactText("Запланировать")).click();
-        $("[data-test-id=name].input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
+        $("[data-test-id=name].input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Имя и Фамилия указаны неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
     @Test
@@ -164,18 +164,6 @@ public class MeetingTest {
         $("[data-test-id='date'] .input__control").setValue(DataGenerator.dataGen(3));
         $("[data-test-id= 'name']").$("[name ='name']").setValue(user.getName());
         $("[data-test-id='phone']").$("[name='phone']").setValue("+7012345678");
-        $("[data-test-id=agreement]").click();
-        $$("button").find(exactText("Запланировать")).click();
-        $("[data-test-id=phone].input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
-    }
-
-    @Test
-    void shouldNotSubmitWith12Phone() {
-        DataGenerator.User user = DataGenerator.Registration.userReg("ru");
-        $("[data-test-id='city']").$("[placeholder='Город']").setValue(user.getCity());
-        $("[data-test-id='date'] .input__control").setValue(DataGenerator.dataGen(3));
-        $("[data-test-id= 'name']").$("[name ='name']").setValue(user.getName());
-        $("[data-test-id='phone']").$("[name='phone']").setValue("+701234567890");
         $("[data-test-id=agreement]").click();
         $$("button").find(exactText("Запланировать")).click();
         $("[data-test-id=phone].input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
