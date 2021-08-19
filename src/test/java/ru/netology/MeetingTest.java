@@ -1,5 +1,9 @@
 package ru.netology;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -12,6 +16,15 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class MeetingTest {
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
 
     @BeforeEach
     void setup() {
@@ -42,6 +55,7 @@ public class MeetingTest {
         $$("button").find(exactText("Запланировать")).click();
         $("[data-test-id=date] .input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Заказ на выбранную дату невозможен"));
     }
+
     @Test
     void shouldNotSubmitToday() {
         DataGenerator.User user = DataGenerator.Registration.userReg("ru");
@@ -53,6 +67,7 @@ public class MeetingTest {
         $$("button").find(exactText("Запланировать")).click();
         $("[data-test-id=date] .input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Заказ на выбранную дату невозможен"));
     }
+
     @Test
     void shouldNotSubmitMinusDay() {
         DataGenerator.User user = DataGenerator.Registration.userReg("ru");
@@ -64,6 +79,7 @@ public class MeetingTest {
         $$("button").find(exactText("Запланировать")).click();
         $("[data-test-id=date] .input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Заказ на выбранную дату невозможен"));
     }
+
     @Test
     void shouldNotSubmitIfEmptyDate() {
         DataGenerator.User user = DataGenerator.Registration.userReg("ru");
@@ -74,6 +90,7 @@ public class MeetingTest {
         $$("button").find(exactText("Запланировать")).click();
         $("[data-test-id=date] .input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Неверно введена дата"));
     }
+
     @Test
     void shouldSubmit5Days() {
         DataGenerator.User user = DataGenerator.Registration.userReg("ru");
@@ -228,6 +245,7 @@ public class MeetingTest {
         $$("button").find(exactText("Запланировать")).click();
         $("[data-test-id=name].input_invalid .input__sub").shouldBe(visible).shouldBe(exactText("Имя и Фамилия указаны неверно. Проверьте, что введённые данные совпадают с паспортными."));
     }
+
     @Test
     void shouldSubmitRequestWithDoubleName() {
         DataGenerator.User user = DataGenerator.Registration.userReg("ru");
@@ -239,6 +257,7 @@ public class MeetingTest {
         $$("button").find(exactText("Запланировать")).click();
         $("[data-test-id=success-notification] .notification__content").shouldBe(visible, Duration.ofSeconds(15)).shouldBe(exactText("Встреча успешно запланирована на " + DataGenerator.dataGen(3)));
     }
+
     @Test
     void shouldReplan() {
         DataGenerator.User user = DataGenerator.Registration.userReg("ru");
